@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo ao Wallet</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <h2>Olá, <span th:text="${userName}">Usuário</span>!</h2>
+    <p>Sua conta na plataforma <strong>Wallet</strong> foi criada com sucesso.</p>
+    <p><strong>E-mail:</strong> <span th:text="${userMail}">email@exemplo.com</span></p>
+    <p>Aproveite todos os nossos serviços para gerenciar seus investimentos e sua carteira de ativos.</p>
+    <br>
+    <p>Atenciosamente,<br>Equipe Wallet</p>
+</body>
+</html>
