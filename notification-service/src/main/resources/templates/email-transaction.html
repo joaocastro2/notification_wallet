@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notificação de Transação - Wallet</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style type="text/css">
+        /* Reset de estilos */
+        body, table, td, a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            outline: none;
+            text-decoration: none;
+        }
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            min-width: 100% !important;
+            background-color: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Responsividade */
+        @media only screen and (max-width: 620px) {
+            .email-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 0 !important;
+                border-left: none !important;
+                border-right: none !important;
+            }
+            .mobile-padding {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+            .mobile-stack {
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .button-wrapper {
+                width: 100% !important;
+                text-align: center !important;
+            }
+            .mobile-btn {
+                display: block !important;
+                width: 100% !important;
+                padding: 14px 0 !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+    <!-- Pré-visualização oculta -->
+    <div style="display: none; max-height: 0px; overflow: hidden; font-size: 1px; line-height: 1px; color: #ffffff; opacity: 0;">
+        Comprovante de execução de ordem: <span th:text="${assetSymbol != null ? assetSymbol : (transaction != null ? transaction.assetSymbol : (dto != null ? dto.assetSymbol : ''))}"></span> - Operação realizada com sucesso na Wallet.
+    </div>
+
+    <!-- Wrapper externo -->
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f1f5f9; table-layout: fixed;">
+        <tr>
+            <td align="center" style="padding: 40px 15px 40px 15px;">
+                
+                <!-- Container principal do e-mail -->
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" class="email-container" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01); border: 1px solid #e2e8f0;">
+                    
+                    <!-- Cabeçalho / Barra de marca -->
+                    <tr>
+                        <td align="center" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); background-color: #0f172a; padding: 36px 30px 32px 30px; text-align: center;">
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <!-- Logo / Brand Badge -->
+                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" style="background: rgba(37, 99, 235, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 8px 16px;">
+                                                    <span style="font-size: 20px; font-weight: 800; letter-spacing: 2px; color: #ffffff; text-transform: uppercase;">⚡ WALLET</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p style="margin: 12px 0 0 0; color: #94a3b8; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase;">
+                                            Comprovante de Execução de Transação
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Destaque da Operação / Badges dinâmicos para BUY e SELL -->
+                    <tr>
+                        <td align="center" style="padding: 36px 30px 10px 30px;" class="mobile-padding">
+                            
+                            <!-- Bloco quando for COMPRA (BUY) -->
+                            <div th:if="${(type != null and (type.toString() == 'BUY' or type == 'BUY')) or (transaction != null and transaction.type != null and transaction.type.toString() == 'BUY') or (dto != null and dto.type != null and dto.type.toString() == 'BUY')}">
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 12px;">
+                                    <tr>
+                                        <td align="center" style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 20px; padding: 6px 16px;">
+                                            <span style="color: #059669; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+                                                🟢 COMPRA EXECUTADA (BUY)
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Bloco quando for VENDA (SELL) -->
+                            <div th:if="${(type != null and (type.toString() == 'SELL' or type == 'SELL')) or (transaction != null and transaction.type != null and transaction.type.toString() == 'SELL') or (dto != null and dto.type != null and dto.type.toString() == 'SELL')}">
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 12px;">
+                                    <tr>
+                                        <td align="center" style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 20px; padding: 6px 16px;">
+                                            <span style="color: #2563eb; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+                                                🔵 VENDA EXECUTADA (SELL)
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Bloco genérico caso type não seja BUY nem SELL especificamente -->
+                            <div th:if="${type == null and (transaction == null or transaction.type == null) and (dto == null or dto.type == null)}">
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 12px;">
+                                    <tr>
+                                        <td align="center" style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 20px; padding: 6px 16px;">
+                                            <span style="color: #475569; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+                                                ⚪ TRANSAÇÃO EXECUTADA
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <h1 style="margin: 8px 0 8px 0; color: #0f172a; font-size: 26px; font-weight: 700; line-height: 1.25; text-align: center;">
+                                Confirmação de Transação
+                            </h1>
+                            <p style="margin: 0; color: #64748b; font-size: 15px; line-height: 1.5; text-align: center;">
+                                Uma nova transação foi registrada e liquidada na sua carteira.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Detalhes da Transação -->
+                    <tr>
+                        <td style="padding: 24px 35px 24px 35px;" class="mobile-padding">
+                            
+                            <!-- Cartão Destaque do Ativo e Valor -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #0f172a; border-radius: 12px; margin-bottom: 24px;">
+                                <tr>
+                                    <td style="padding: 24px 20px; text-align: center;">
+                                        <p style="margin: 0 0 6px 0; color: #94a3b8; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+                                            Ativo Negociado
+                                        </p>
+                                        <h2 style="margin: 0 0 10px 0; color: #ffffff; font-size: 32px; font-weight: 800; letter-spacing: 1px;" th:text="${assetSymbol != null ? assetSymbol : (transaction != null ? transaction.assetSymbol : (dto != null ? dto.assetSymbol : '-'))}">
+                                            PETR4
+                                        </h2>
+                                        <p style="margin: 0; color: #38bdf8; font-size: 14px; font-weight: 600;">
+                                            Operação: <span th:text="${type != null ? type : (transaction != null ? transaction.type : (dto != null ? dto.type : '-'))}">BUY</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Tabela Detalhada com os DTOs -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 24px;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td colspan="2" style="padding-bottom: 14px; border-bottom: 1px solid #e2e8f0;">
+                                                    <span style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.75px;">
+                                                        📑 Resumo da Operação
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+                                            <!-- ID da Transação -->
+                                            <tr>
+                                                <td style="padding: 12px 0 8px 0; color: #64748b; font-size: 14px; width: 42%;">
+                                                    <strong>ID da Transação:</strong>
+                                                </td>
+                                                <td style="padding: 12px 0 8px 0; color: #0f172a; font-size: 12px; font-family: monospace; text-align: right; word-break: break-all;" th:text="${transactionId != null ? transactionId : (transaction != null ? transaction.transactionId : (dto != null ? dto.transactionId : '-'))}">
+                                                    9a2f7c40-1234-5678-abcd-ef0123456789
+                                                </td>
+                                            </tr>
+
+                                            <!-- Ativo -->
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #64748b; font-size: 14px; border-top: 1px solid #f1f5f9;">
+                                                    <strong>Ativo:</strong>
+                                                </td>
+                                                <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 700; text-align: right; border-top: 1px solid #f1f5f9;" th:text="${assetSymbol != null ? assetSymbol : (transaction != null ? transaction.assetSymbol : (dto != null ? dto.assetSymbol : '-'))}">
+                                                    PETR4
+                                                </td>
+                                            </tr>
+
+                                            <!-- Operação -->
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #64748b; font-size: 14px; border-top: 1px solid #f1f5f9;">
+                                                    <strong>Operação:</strong>
+                                                </td>
+                                                <td style="padding: 8px 0; font-size: 14px; font-weight: 700; text-align: right; border-top: 1px solid #f1f5f9;" th:text="${type != null ? type : (transaction != null ? transaction.type : (dto != null ? dto.type : '-'))}">
+                                                    BUY
+                                                </td>
+                                            </tr>
+
+                                            <!-- Quantidade -->
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #64748b; font-size: 14px; border-top: 1px solid #f1f5f9;">
+                                                    <strong>Quantidade:</strong>
+                                                </td>
+                                                <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600; text-align: right; border-top: 1px solid #f1f5f9;" th:text="${quantity != null ? quantity : (transaction != null ? transaction.quantity : (dto != null ? dto.quantity : '-'))}">
+                                                    100
+                                                </td>
+                                            </tr>
+
+                                            <!-- Preço Unitário -->
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #64748b; font-size: 14px; border-top: 1px solid #f1f5f9;">
+                                                    <strong>Preço Unitário:</strong>
+                                                </td>
+                                                <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600; text-align: right; border-top: 1px solid #f1f5f9;">
+                                                    R$ <span th:text="${unitPrice != null ? unitPrice : (transaction != null ? transaction.unitPrice : (dto != null ? dto.unitPrice : '-'))}">35.50</span>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Valor Total -->
+                                            <tr>
+                                                <td style="padding: 10px 0; color: #0f172a; font-size: 15px; font-weight: 700; border-top: 2px solid #e2e8f0;">
+                                                    <strong>Valor Total:</strong>
+                                                </td>
+                                                <td style="padding: 10px 0; color: #0f172a; font-size: 18px; font-weight: 800; text-align: right; border-top: 2px solid #e2e8f0;">
+                                                    R$ <span th:text="${totalValue != null ? totalValue : (transaction != null ? transaction.totalValue : (dto != null ? dto.totalValue : '-'))}">3550.00</span>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Data/Hora -->
+                                            <tr>
+                                                <td style="padding: 8px 0 0 0; color: #64748b; font-size: 13px; border-top: 1px solid #f1f5f9;">
+                                                    <strong>Data/Hora:</strong>
+                                                </td>
+                                                <td style="padding: 8px 0 0 0; color: #64748b; font-size: 13px; font-weight: 500; text-align: right; border-top: 1px solid #f1f5f9;" th:text="${createdAt != null ? (createdAt instanceof T(java.time.temporal.TemporalAccessor) ? #temporals.format(createdAt, 'dd/MM/yyyy HH:mm:ss') : createdAt) : (transaction != null ? transaction.createdAt : (dto != null ? dto.createdAt : '-'))}">
+                                                    17/10/2026 18:00:00
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Botão de Ação (CTA) -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 24px;">
+                                <tr>
+                                    <td align="center">
+                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="button-wrapper">
+                                            <tr>
+                                                <td align="center" style="border-radius: 8px; background-color: #2563eb;">
+                                                    <a href="#" style="background-color: #2563eb; border: 1px solid #2563eb; border-radius: 8px; color: #ffffff; display: inline-block; font-size: 15px; font-weight: 600; line-height: 1; padding: 14px 28px; text-decoration: none; text-align: center;" class="mobile-btn">
+                                                        Visualizar Transação na Carteira &rarr;
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Nota de Segurança e Custódia -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+                                <tr>
+                                    <td style="padding: 14px 16px;">
+                                        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #64748b;">
+                                            🛡️ <strong>Aviso de Segurança:</strong> As ordens são executadas em ambiente criptografado e auditado. Caso você não reconheça esta operação, acerte o bloqueio provisório da sua conta ou contate imediatamente nosso time de suporte.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- Rodapé -->
+                    <tr>
+                        <td style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; padding: 24px 30px; text-align: center;">
+                            <p style="margin: 0 0 6px 0; font-size: 13px; font-weight: 600; color: #475569;">
+                                Atenciosamente,<br />Equipe Wallet
+                            </p>
+                            <p style="margin: 0 0 12px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">
+                                Este é um e-mail automático gerado após a execução da ordem. Por favor, não responda diretamente a esta mensagem.
+                            </p>
+                            <p style="margin: 0; font-size: 11px; color: #cbd5e1;">
+                                &copy; 2026 Wallet. Todos os direitos reservados.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+                <!-- /Container principal -->
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
