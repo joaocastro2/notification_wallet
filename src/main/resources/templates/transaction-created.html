@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notificação de Transação - Wallet</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <h2>Confirmação de Transação</h2>
+    <p>Uma nova transação foi registrada na sua carteira:</p>
+    <ul>
+        <li><strong>ID da Transação:</strong> <span th:text="${transactionId}">-</span></li>
+        <li><strong>Ativo:</strong> <span th:text="${assetSymbol}">-</span></li>
+        <li><strong>Operação:</strong> <span th:text="${type}">-</span></li>
+        <li><strong>Quantidade:</strong> <span th:text="${quantity}">-</span></li>
+        <li><strong>Preço Unitário:</strong> R$ <span th:text="${unitPrice}">-</span></li>
+        <li><strong>Valor Total:</strong> R$ <span th:text="${totalValue}">-</span></li>
+        <li><strong>Data/Hora:</strong> <span th:text="${createdAt}">-</span></li>
+    </ul>
+    <br>
+    <p>Atenciosamente,<br>Equipe Wallet</p>
+</body>
+</html>
