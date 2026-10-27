@@ -1,15 +1,115 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Bem-vindo ao Wallet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bem-vindo &agrave; Wallet</title>
+    <style>
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { border: 0; outline: none; text-decoration: none; }
+        body { margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #eef4ff; }
+        .email-container { width: 100%; max-width: 620px; }
+        .mobile-padding { padding-left: 42px !important; padding-right: 42px !important; }
+        @media only screen and (max-width: 620px) {
+            .email-container { width: 100% !important; border-radius: 0 !important; }
+            .mobile-padding { padding-left: 22px !important; padding-right: 22px !important; }
+            .mobile-title { font-size: 28px !important; }
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <h2>Olá, <span th:text="${userName}">Usuário</span>!</h2>
-    <p>Sua conta na plataforma <strong>Wallet</strong> foi criada com sucesso.</p>
-    <p><strong>E-mail:</strong> <span th:text="${userMail}">email@exemplo.com</span></p>
-    <p>Aproveite todos os nossos serviços para gerenciar seus investimentos e sua carteira de ativos.</p>
-    <br>
-    <p>Atenciosamente,<br>Equipe Wallet</p>
+<body style="margin:0; padding:0; background-color:#eef4ff; font-family:Arial, Helvetica, sans-serif; color:#24324a;">
+    <div style="display:none; max-height:0; overflow:hidden; opacity:0; font-size:1px; line-height:1px; color:#eef4ff;">
+        Sua conta Wallet foi criada com sucesso. Prepare sua carteira para novos objetivos.
+    </div>
+
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#eef4ff;">
+        <tr>
+            <td align="center" style="padding:34px 14px;">
+                <table role="presentation" class="email-container" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:620px; background-color:#ffffff; border:1px solid #dce6f7; border-radius:24px; overflow:hidden; box-shadow:0 14px 40px rgba(42,74,125,0.12);">
+                    <tr>
+                        <td align="center" style="padding:30px 24px 34px; background-color:#14213d; background-image:linear-gradient(135deg,#14213d 0%,#244d83 100%);">
+                            <table role="presentation" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding:9px 17px; border:1px solid #5db7ff; border-radius:14px; background-color:#203d68; color:#ffffff; font-size:19px; font-weight:bold; letter-spacing:2px;">WALLET</td>
+                                </tr>
+                            </table>
+                            <p style="margin:14px 0 0; color:#b9d9ff; font-size:12px; font-weight:bold; letter-spacing:1.4px; text-transform:uppercase;">Sua vida financeira, mais simples</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" class="mobile-padding" style="padding:38px 42px 10px;">
+                            <!-- Personagem constru&iacute;do apenas com HTML/CSS, sem imagem externa. -->
+                            <table role="presentation" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto 22px;">
+                                <tr>
+                                    <td align="center" valign="middle" style="width:112px; height:92px; border:3px solid #2e6edb; border-radius:26px; background-color:#dcebff; box-shadow:inset 0 -8px 0 #b8d4fb;">
+                                        <table role="presentation" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td style="width:12px; height:12px; border-radius:50%; background-color:#14213d; font-size:1px; line-height:12px;">&nbsp;</td>
+                                                <td style="width:20px; font-size:1px;">&nbsp;</td>
+                                                <td style="width:12px; height:12px; border-radius:50%; background-color:#14213d; font-size:1px; line-height:12px;">&nbsp;</td>
+                                            </tr>
+                                            <tr><td colspan="3" align="center" style="padding-top:10px; color:#2e6edb; font-size:22px; line-height:18px; font-weight:bold;">&#8966;</td></tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr><td align="center" style="padding-top:9px; color:#2e6edb; font-size:18px; line-height:18px;">&#9670;</td></tr>
+                            </table>
+
+                            <table role="presentation" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto 16px;">
+                                <tr><td style="padding:7px 15px; border:1px solid #a7e8c5; border-radius:30px; background-color:#ecfff4; color:#17824b; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase;">&#10003;&nbsp; Conta criada com sucesso</td></tr>
+                            </table>
+                            <h1 class="mobile-title" style="margin:0 0 10px; color:#14213d; font-size:32px; line-height:1.2; font-weight:800; text-align:center;">Bem-vindo(a) &agrave; Wallet!</h1>
+                            <p style="margin:0; color:#60708a; font-size:16px; line-height:1.6; text-align:center;">Ol&aacute;, <strong style="color:#14213d;" th:text="${userName}">Investidor</strong>!<br>Sua nova carteira j&aacute; est&aacute; pronta para acompanhar seus objetivos.</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="mobile-padding" style="padding:26px 42px 10px;">
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="border:1px solid #dce6f7; border-radius:16px; background-color:#f8fbff;">
+                                <tr><td style="padding:20px 22px;">
+                                    <p style="margin:0 0 14px; color:#6c7c94; font-size:11px; font-weight:bold; letter-spacing:1.2px; text-transform:uppercase;">Resumo do cadastro</p>
+                                    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td style="padding:8px 0; color:#6c7c94; font-size:14px;">Nome</td>
+                                            <td align="right" style="padding:8px 0; color:#14213d; font-size:14px; font-weight:bold;" th:text="${userName}">Investidor</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:10px 0 2px; border-top:1px solid #e7eef9; color:#6c7c94; font-size:14px;">E-mail</td>
+                                            <td align="right" style="padding:10px 0 2px; border-top:1px solid #e7eef9; color:#14213d; font-size:14px; font-weight:bold; word-break:break-word;" th:text="${userMail}">email@exemplo.com</td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="mobile-padding" style="padding:20px 42px 30px;">
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td valign="top" style="width:34px; color:#2e6edb; font-size:21px; line-height:28px;">&#9733;</td>
+                                    <td style="padding-bottom:13px; color:#52647e; font-size:14px; line-height:1.55;"><strong style="color:#14213d;">Acompanhe seus ativos</strong><br>Tenha uma vis&atilde;o clara do seu patrim&ocirc;nio.</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" style="width:34px; color:#2e6edb; font-size:21px; line-height:28px;">&#9673;</td>
+                                    <td style="color:#52647e; font-size:14px; line-height:1.55;"><strong style="color:#14213d;">Receba atualiza&ccedil;&otilde;es</strong><br>Saiba quando suas opera&ccedil;&otilde;es forem confirmadas.</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="padding:24px 28px; border-top:1px solid #e6edf8; background-color:#f8fbff;">
+                            <p style="margin:0 0 6px; color:#314563; font-size:14px; line-height:1.5;">Conte com a gente nessa jornada.</p>
+                            <p style="margin:0; color:#8a99ae; font-size:12px; line-height:1.5;">Atenciosamente,<br><strong>Equipe Wallet</strong></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
