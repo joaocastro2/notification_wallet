@@ -25,9 +25,10 @@ spring:
     properties:
       mail:
         smtp:
-          auth: false
+          auth: ${MAIL_SMTP_AUTH:false}
           starttls:
-            enable: false
+            enable: ${MAIL_SMTP_STARTTLS_ENABLE:false}
+            required: ${MAIL_SMTP_STARTTLS_REQUIRED:false}
 
   thymeleaf:
     prefix: classpath:/templates/
@@ -43,5 +44,7 @@ kafka:
 
 notification:
   mail:
-    from: ${MAIL_FROM:no-reply@wallet.com}
-    default-recipient: ${NOTIFICATION_DEFAULT_RECIPIENT:notifications@wallet.com}
+    from: ${MAIL_FROM:${MAIL_USERNAME:no-reply@wallet.com}}
+    from-name: "${MAIL_FROM_NAME:Wallet | João Castro}"
+    reply-to: ${MAIL_REPLY_TO:}
+    default-recipient: ${NOTIFICATION_DEFAULT_RECIPIENT:${MAIL_USERNAME:notifications@wallet.com}}

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
@@ -26,6 +27,12 @@ public class UserCreatedEmailStrategy implements EmailStrategy<UserCreatedEvent>
 
     @Value("${notification.mail.from:${spring.mail.username:}}")
     private String fromEmail;
+
+    @Value("${notification.mail.from-name:Wallet}")
+    private String fromName;
+
+    @Value("${notification.mail.reply-to:}")
+    private String replyTo;
 
     @Override
     public void sendEmail(UserCreatedEvent event) {
@@ -58,14 +65,21 @@ public class UserCreatedEmailStrategy implements EmailStrategy<UserCreatedEvent>
             MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
 
             String sender = (fromEmail != null && !fromEmail.isBlank()) ? fromEmail : "no-reply@wallet.com";
-            helper.setFrom(sender);
+            if (fromName != null && !fromName.isBlank()) {
+                helper.setFrom(sender, fromName);
+            } else {
+                helper.setFrom(sender);
+            }
+            if (replyTo != null && !replyTo.isBlank()) {
+                helper.setReplyTo(replyTo);
+            }
             helper.setTo(userMail);
             helper.setSubject("Bem-vindo ao Wallet");
             helper.setText(htmlContent, true);
 
             mailSender.send(message);
             log.info("E-mail de boas-vindas enviado com sucesso para {}", userMail);
-        } catch (MessagingException | MailException e) {
+        } catch (MessagingException | MailException | UnsupportedEncodingException e) {
             log.error("Erro ao enviar e-mail de boas-vindas para {}: {}", userMail, e.getMessage(), e);
             throw new RuntimeException("Falha ao enviar e-mail para: " + userMail, e);
         }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -30,6 +31,12 @@ public class AssetTransactionEmailStrategy implements EmailStrategy<TransactionC
 
     @Value("${notification.mail.from:${spring.mail.username:}}")
     private String fromEmail;
+
+    @Value("${notification.mail.from-name:Wallet}")
+    private String fromName;
+
+    @Value("${notification.mail.reply-to:}")
+    private String replyTo;
 
     @Value("${notification.mail.default-recipient:notifications@wallet.com}")
     private String defaultRecipient;
@@ -82,14 +89,21 @@ public class AssetTransactionEmailStrategy implements EmailStrategy<TransactionC
             String sender = (fromEmail != null && !fromEmail.isBlank()) ? fromEmail : "no-reply@wallet.com";
             String targetRecipient = (recipient != null && !recipient.isBlank()) ? recipient : defaultRecipient;
 
-            helper.setFrom(sender);
+            if (fromName != null && !fromName.isBlank()) {
+                helper.setFrom(sender, fromName);
+            } else {
+                helper.setFrom(sender);
+            }
+            if (replyTo != null && !replyTo.isBlank()) {
+                helper.setReplyTo(replyTo);
+            }
             helper.setTo(targetRecipient);
             helper.setSubject("Notificação de Transação - Wallet");
             helper.setText(htmlContent, true);
 
             mailSender.send(message);
             log.info("E-mail de confirmação de transação enviado com sucesso para {}", targetRecipient);
-        } catch (MessagingException | MailException e) {
+        } catch (MessagingException | MailException | UnsupportedEncodingException e) {
             log.error("Erro ao enviar e-mail de transação para {}: {}", recipient, e.getMessage(), e);
             throw new RuntimeException("Falha ao enviar e-mail para: " + recipient, e);
         }

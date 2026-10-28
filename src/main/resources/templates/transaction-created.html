@@ -1,22 +1,130 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Notificação de Transação - Wallet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Transa&ccedil;&atilde;o Wallet</title>
+    <style>
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        body { margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #eef4ff; }
+        .email-container { width: 100%; max-width: 580px; }
+        .mobile-padding { padding-left: 34px !important; padding-right: 34px !important; }
+        .mobile-title { font-size: 30px !important; }
+        .status-dot { animation: walletPulse 1.9s ease-in-out infinite; }
+        @keyframes walletPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(46, 110, 219, 0.28); }
+            50% { box-shadow: 0 0 0 7px rgba(46, 110, 219, 0); }
+        }
+        @media only screen and (max-width: 620px) {
+            .email-container { width: 100% !important; border-radius: 0 !important; }
+            .mobile-padding { padding-left: 22px !important; padding-right: 22px !important; }
+            .mobile-title { font-size: 27px !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .status-dot { animation: none !important; }
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <h2>Confirmação de Transação</h2>
-    <p>Uma nova transação foi registrada na sua carteira:</p>
-    <ul>
-        <li><strong>ID da Transação:</strong> <span th:text="${transactionId}">-</span></li>
-        <li><strong>Ativo:</strong> <span th:text="${assetSymbol}">-</span></li>
-        <li><strong>Operação:</strong> <span th:text="${type}">-</span></li>
-        <li><strong>Quantidade:</strong> <span th:text="${quantity}">-</span></li>
-        <li><strong>Preço Unitário:</strong> R$ <span th:text="${unitPrice}">-</span></li>
-        <li><strong>Valor Total:</strong> R$ <span th:text="${totalValue}">-</span></li>
-        <li><strong>Data/Hora:</strong> <span th:text="${createdAt}">-</span></li>
-    </ul>
-    <br>
-    <p>Atenciosamente,<br>Equipe Wallet</p>
+<body style="margin:0; padding:0; background-color:#eef4ff; font-family:Arial, Helvetica, sans-serif; color:#24324a;">
+    <div style="display:none; max-height:0; overflow:hidden; opacity:0; font-size:1px; line-height:1px; color:#eef4ff;">
+        Sua transa&ccedil;&atilde;o foi registrada com sucesso na Wallet.
+    </div>
+
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#eef4ff;">
+        <tr>
+            <td align="center" style="padding:28px 14px;">
+                <table role="presentation" class="email-container" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:580px; background-color:#ffffff; border:1px solid #dce6f7; border-radius:22px; overflow:hidden; box-shadow:0 12px 34px rgba(42,74,125,0.11);">
+                    <tr>
+                        <td style="height:5px; background-color:#2e6edb; font-size:1px; line-height:5px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="mobile-padding" style="padding:25px 34px 22px; background-color:#14213d;">
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td style="color:#ffffff; font-size:17px; font-weight:bold; letter-spacing:2px;">WALLET</td>
+                                    <td align="right" style="color:#b9d9ff; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase;">Atividade da conta</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="mobile-padding" style="padding:34px 34px 12px;">
+                            <table role="presentation" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:17px;">
+                                <tr>
+                                    <td valign="middle" style="padding-right:9px;">
+                                        <span class="status-dot" style="display:inline-block; width:10px; height:10px; border-radius:50%; background-color:#2e6edb; vertical-align:middle;">&nbsp;</span>
+                                    </td>
+                                    <td style="color:#2e6edb; font-size:12px; font-weight:bold; letter-spacing:1.1px; text-transform:uppercase;">Transa&ccedil;&atilde;o confirmada</td>
+                                </tr>
+                            </table>
+                            <h1 class="mobile-title" style="margin:0 0 10px; color:#14213d; font-size:30px; line-height:1.2; font-weight:800;">Opera&ccedil;&atilde;o registrada</h1>
+                            <p style="margin:0; color:#60708a; font-size:15px; line-height:1.6;">Sua movimenta&ccedil;&atilde;o foi processada e j&aacute; faz parte do hist&oacute;rico da sua carteira.</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="mobile-padding" style="padding:22px 34px 10px;">
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="border:1px solid #dce6f7; border-radius:16px; background-color:#f8fbff;">
+                                <tr>
+                                    <td style="padding:20px 20px 16px;">
+                                        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td>
+                                                    <p style="margin:0 0 5px; color:#6c7c94; font-size:11px; font-weight:bold; letter-spacing:1.1px; text-transform:uppercase;">Ativo</p>
+                                                    <p style="margin:0; color:#14213d; font-size:25px; line-height:1.2; font-weight:800;" th:text="${assetSymbol}">BTC</p>
+                                                </td>
+                                                <td align="right" valign="middle">
+                                                    <span style="display:inline-block; padding:7px 11px; border:1px solid #a7e8c5; border-radius:20px; background-color:#ecfff4; color:#17824b; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase;" th:text="${type}">BUY</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:18px;">
+                                            <tr>
+                                                <td style="padding:9px 0; border-top:1px solid #e7eef9; color:#6c7c94; font-size:13px;">Quantidade</td>
+                                                <td align="right" style="padding:9px 0; border-top:1px solid #e7eef9; color:#14213d; font-size:13px; font-weight:bold;" th:text="${quantity}">0,00</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:9px 0; border-top:1px solid #e7eef9; color:#6c7c94; font-size:13px;">Pre&ccedil;o unit&aacute;rio</td>
+                                                <td align="right" style="padding:9px 0; border-top:1px solid #e7eef9; color:#14213d; font-size:13px; font-weight:bold;">R$ <span th:text="${unitPrice}">0,00</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:12px 0 2px; border-top:1px solid #dce6f7; color:#14213d; font-size:14px; font-weight:bold;">Valor total</td>
+                                                <td align="right" style="padding:12px 0 2px; border-top:1px solid #dce6f7; color:#2e6edb; font-size:17px; font-weight:800;">R$ <span th:text="${totalValue}">0,00</span></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="mobile-padding" style="padding:18px 34px 28px;">
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td style="color:#8a99ae; font-size:12px; line-height:1.5;">Data e hora</td>
+                                    <td align="right" style="color:#52647e; font-size:12px; line-height:1.5;" th:text="${createdAt}">-</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top:8px; color:#8a99ae; font-size:12px; line-height:1.5;">ID da transa&ccedil;&atilde;o</td>
+                                    <td align="right" style="padding-top:8px; color:#52647e; font-size:11px; line-height:1.5; word-break:break-all;" th:text="${transactionId}">-</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="padding:21px 24px; border-top:1px solid #e6edf8; background-color:#f8fbff;">
+                            <p style="margin:0 0 5px; color:#314563; font-size:13px; line-height:1.5;">Esta &eacute; uma confirma&ccedil;&atilde;o autom&aacute;tica da Wallet.</p>
+                            <p style="margin:0; color:#8a99ae; font-size:12px; line-height:1.5;">Atenciosamente,<br><strong>Equipe Wallet</strong></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
